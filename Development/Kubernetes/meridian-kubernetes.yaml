@@ -36,7 +36,7 @@ spec:
             - --master
             - local[2]
             - --driver-memory
-            - 1g
+            - 768m
             - --properties-file
             - /etc/meridian/spark-defaults.conf
             - --class
@@ -64,10 +64,10 @@ spec:
           resources:
             requests:
               cpu: 500m
-              memory: 1536Mi
+              memory: 1024Mi
             limits:
               cpu: "2"
-              memory: 3Gi
+              memory: 1536Mi
           volumeMounts:
             - name: spark-config
               mountPath: /etc/meridian
@@ -141,7 +141,7 @@ spec:
             - --master
             - local[2]
             - --driver-memory
-            - 1g
+            - 768m
             - --conf
             - spark.sql.shuffle.partitions=4
             - --class
@@ -152,7 +152,7 @@ spec:
           resources:
             requests:
               cpu: 500m
-              memory: 1536Mi
+              memory: 1024Mi
             limits:
               cpu: "2"
-              memory: 3Gi
+              memory: 1536Mi
