@@ -1,0 +1,37 @@
+﻿Before pod replacement: meridian-stream-adls-recovery-846df4bfdf-fbx4h
+Finished streaming batch 0
+Saved Kafka records = 12
+ADLS window state: window_rows=3 window_events=8
+|ACCEPTED   |8    |
+|REJECTED   |1    |
+|DUPLICATE  |3    |
+Finished streaming batch 1
+Saved Kafka records = 24
+ADLS window state: window_rows=5 window_events=16
+|ACCEPTED   |16   |
+|REJECTED   |3    |
+|DUPLICATE  |5    |
+Finished streaming batch 2
+Saved Kafka records = 36
+ADLS window state: window_rows=10 window_events=27
+|ACCEPTED   |27   |
+|REJECTED   |3    |
+|DUPLICATE  |6    |
+Finished streaming batch 3
+Saved Kafka records = 44
+ADLS window state: window_rows=12 window_events=32
+|ACCEPTED   |32   |
+|REJECTED   |4    |
+|DUPLICATE  |7    |
+|LATE       |1    |
+After replacement: meridian-stream-adls-recovery-846df4bfdf-t6mzv
+State before starting stream: saved_records=44 window_rows=12 window_events=32 checkpoint_commits=4
+Finished streaming batch 4
+Saved Kafka records = 45
+ADLS window state: window_rows=12 window_events=33
+|ACCEPTED   |33   |
+|REJECTED   |4    |
+|DUPLICATE  |7    |
+|LATE       |1    |
+Iceberg time travel verified: snapshots=5 first_events=8 before_restart_events=32 current_events=33 changed_windows=1
+Delta audit verified: Map(ACCEPTED -> 33, REJECTED -> 4, DUPLICATE -> 7, LATE -> 1)

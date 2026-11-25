@@ -1,0 +1,7 @@
+Project Meridian final demonstration, 2026-11-21 16:14:47 +05:30
+Execution: Docker Desktop Kubernetes, with ADLS Gen2 for the streaming checkpoint and warehouse.
+Scope: 141 shipment input rows and the 43-event fixture plus two synthetic events.
+Observed while the job was running: Raw rows = 141; Rows after deduplication = 133.
+Kubernetes API stopped responding. Docker Desktop Linux engine returned HTTP 500.
+kubectl wait timed out on job/meridian-batch-finaldemo before successful completion could be confirmed.
+Result: incomplete local rerun. The ADLS replay stage did not start.

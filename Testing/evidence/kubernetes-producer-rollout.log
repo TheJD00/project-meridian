@@ -1,0 +1,59 @@
+Producer rollout and rollback on docker-desktop, 2026-11-21 15:50:59 +05:30
+kubectl --context docker-desktop exec deployment/meridian-kafka -- /opt/kafka/bin/kafka-topics.sh --bootstrap-server meridian-kafka:9092 --create --if-not-exists --topic shipment-tracking-rollout-evidence --partitions 1 --replication-factor 1
+Created topic shipment-tracking-rollout-evidence.
+Apply isolated copy of meridian-producer-deployment.yaml for meridian-producer-evidence using topic shipment-tracking-rollout-evidence.
+configmap/meridian-producer-evidence created
+deployment.apps/meridian-producer-evidence created
+kubectl --context docker-desktop rollout status deployment/meridian-producer-evidence --timeout=150s
+Waiting for deployment "meridian-producer-evidence" rollout to finish: 0 out of 1 new replicas have been updated...
+Waiting for deployment "meridian-producer-evidence" rollout to finish: 0 of 1 updated replicas are available...
+deployment "meridian-producer-evidence" successfully rolled out
+kubectl --context docker-desktop get deploy meridian-producer-evidence -o custom-columns=NAME:.metadata.name,STRATEGY:.spec.strategy.type,READY:.status.readyReplicas
+NAME                         STRATEGY        READY
+meridian-producer-evidence   RollingUpdate   1
+kubectl --context docker-desktop rollout history deployment/meridian-producer-evidence
+deployment.apps/meridian-producer-evidence
+REVISION  CHANGE-CAUSE
+1         <none>
+
+kubectl --context docker-desktop set env deployment/meridian-producer-evidence MERIDIAN_ROLLOUT_PROBE=revision-2
+deployment.apps/meridian-producer-evidence env updated
+kubectl --context docker-desktop rollout status deployment/meridian-producer-evidence --timeout=150s
+Waiting for deployment "meridian-producer-evidence" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "meridian-producer-evidence" rollout to finish: 1 old replicas are pending termination...
+deployment "meridian-producer-evidence" successfully rolled out
+kubectl --context docker-desktop rollout history deployment/meridian-producer-evidence
+deployment.apps/meridian-producer-evidence
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+
+kubectl --context docker-desktop get rs -l app=meridian-producer-evidence
+kubectl --context docker-desktop get rs -l app=meridian-producer-evidence
+NAME                                   DESIRED   CURRENT   READY   AGE
+meridian-producer-evidence-86684c5df   0         0         0       44s
+meridian-producer-evidence-97b644b67   1         1         1       31s
+kubectl --context docker-desktop logs deployment/meridian-producer-evidence --tail=8
+Warning: --property is deprecated and will be removed in a future version. Use --reader-property instead.
+kubectl --context docker-desktop rollout undo deployment/meridian-producer-evidence --to-revision=1
+deployment.apps/meridian-producer-evidence rolled back
+kubectl --context docker-desktop rollout status deployment/meridian-producer-evidence --timeout=150s
+Waiting for deployment "meridian-producer-evidence" rollout to finish: 0 out of 1 new replicas have been updated...
+Waiting for deployment "meridian-producer-evidence" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "meridian-producer-evidence" rollout to finish: 1 old replicas are pending termination...
+deployment "meridian-producer-evidence" successfully rolled out
+kubectl --context docker-desktop rollout history deployment/meridian-producer-evidence
+deployment.apps/meridian-producer-evidence
+REVISION  CHANGE-CAUSE
+2         <none>
+3         <none>
+
+Verified one ready replica and the original pod template after rollback.
+kubectl --context docker-desktop get events --field-selector involvedObject.name=meridian-producer-evidence --sort-by=.lastTimestamp
+LAST SEEN   TYPE     REASON              OBJECT                                  MESSAGE
+43s         Normal   ScalingReplicaSet   deployment/meridian-producer-evidence   Scaled up replica set meridian-producer-evidence-97b644b67 from 0 to 1
+31s         Normal   ScalingReplicaSet   deployment/meridian-producer-evidence   Scaled down replica set meridian-producer-evidence-86684c5df from 1 to 0
+12s         Normal   ScalingReplicaSet   deployment/meridian-producer-evidence   Scaled up replica set meridian-producer-evidence-86684c5df from 0 to 1
+1s          Normal   ScalingReplicaSet   deployment/meridian-producer-evidence   Scaled down replica set meridian-producer-evidence-97b644b67 from 1 to 0
+kubectl --context docker-desktop scale deployment/meridian-producer-evidence --replicas=0
+deployment.apps/meridian-producer-evidence scaled

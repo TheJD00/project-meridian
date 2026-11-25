@@ -1,0 +1,49 @@
+name: Meridian CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  producer-image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the Kafka producer image
+        run: docker build -f Development/Docker/meridian-producer.Dockerfile -t meridian-producer:ci .
+      - name: Check the container user and replay dataset
+        run: |
+          docker run --rm --entrypoint /bin/sh meridian-producer:ci -ec '
+            test "$(id -u)" -ne 0
+            test "$(grep -c . /opt/kafka/meridian-events.txt)" -eq 43
+          '
+
+  processing-images:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the Spark batch and streaming images
+        run: |
+          docker build -f Development/Docker/meridian-batch.Dockerfile -t meridian-batch:ci .
+          docker build -f Development/Docker/meridian-stream.Dockerfile -t meridian-stream:ci .
+      - name: Validate the local real-time Compose configuration
+        run: docker compose -f Development/Docker/compose.realtime.yaml config --quiet
+      - name: Verify image dependencies and user
+        run: |
+          test "$(docker run --rm --entrypoint id meridian-batch:ci -u)" -ne 0
+          docker run --rm --entrypoint /bin/bash meridian-stream:ci -ec '
+            test "$(id -u)" -ne 0
+            compgen -G "/opt/meridian/jars/*kafka-clients*.jar"
+            compgen -G "/opt/meridian/jars/*delta-spark*.jar"
+            compgen -G "/opt/meridian/jars/*iceberg-spark-runtime*.jar"
+            compgen -G "/opt/meridian/jars/*hadoop-azure*.jar"
+          '
+      - name: Verify batch reconciliation
+        run: |
+          set -o pipefail
+          docker run --rm meridian-batch:ci 2>&1 | tee batch.log
+          grep -F 'Batch verified: raw=141 latest=133 curated=122 rejected=11' batch.log

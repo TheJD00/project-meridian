@@ -1,0 +1,6 @@
+﻿Meridian Delta upsert verification
+Baseline: raw=141 latest=133 curated=122 rejected=11
+Second run: raw=143 latest=134 curated=122 rejected=12
+Added a newer version of shipment SHP2026000075 and one malformed shipment ID to an isolated copy of the input.
+Delta transaction: MERGE, readVersion=0, updated=1, inserted=0, deleted=0, outputRows=122
+Engine: Apache-Spark/3.5.3 Delta-Lake/3.2.1

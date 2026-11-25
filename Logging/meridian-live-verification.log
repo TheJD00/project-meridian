@@ -1,0 +1,110 @@
+:: loading settings :: url = jar:file:/opt/spark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+Ivy Default Cache set to: /tmp/meridian-ivy/cache
+The jars for the packages stored in: /tmp/meridian-ivy/jars
+org.apache.spark#spark-sql-kafka-0-10_2.12 added as a dependency
+org.apache.iceberg#iceberg-spark-runtime-3.5_2.12 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-a24e19d8-8d5c-4ecd-9af8-82351084ef7c;1.0
+	confs: [default]
+	found org.apache.spark#spark-sql-kafka-0-10_2.12;3.5.3 in central
+	found org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.5.3 in central
+	found org.apache.kafka#kafka-clients;3.4.1 in central
+	found org.lz4#lz4-java;1.8.0 in central
+	found org.xerial.snappy#snappy-java;1.1.10.5 in central
+	found org.slf4j#slf4j-api;2.0.7 in central
+	found org.apache.hadoop#hadoop-client-runtime;3.3.4 in central
+	found org.apache.hadoop#hadoop-client-api;3.3.4 in central
+	found commons-logging#commons-logging;1.1.3 in central
+	found com.google.code.findbugs#jsr305;3.0.0 in central
+	found org.apache.commons#commons-pool2;2.11.1 in central
+	found org.apache.iceberg#iceberg-spark-runtime-3.5_2.12;1.12.0 in central
+downloading https://repo1.maven.org/maven2/org/apache/spark/spark-sql-kafka-0-10_2.12/3.5.3/spark-sql-kafka-0-10_2.12-3.5.3.jar ...
+	[SUCCESSFUL ] org.apache.spark#spark-sql-kafka-0-10_2.12;3.5.3!spark-sql-kafka-0-10_2.12.jar (392ms)
+downloading https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark-runtime-3.5_2.12/1.12.0/iceberg-spark-runtime-3.5_2.12-1.12.0.jar ...
+	[SUCCESSFUL ] org.apache.iceberg#iceberg-spark-runtime-3.5_2.12;1.12.0!iceberg-spark-runtime-3.5_2.12.jar (10400ms)
+downloading https://repo1.maven.org/maven2/org/apache/spark/spark-token-provider-kafka-0-10_2.12/3.5.3/spark-token-provider-kafka-0-10_2.12-3.5.3.jar ...
+	[SUCCESSFUL ] org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.5.3!spark-token-provider-kafka-0-10_2.12.jar (165ms)
+downloading https://repo1.maven.org/maven2/org/apache/kafka/kafka-clients/3.4.1/kafka-clients-3.4.1.jar ...
+	[SUCCESSFUL ] org.apache.kafka#kafka-clients;3.4.1!kafka-clients.jar (1643ms)
+downloading https://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.0/jsr305-3.0.0.jar ...
+	[SUCCESSFUL ] com.google.code.findbugs#jsr305;3.0.0!jsr305.jar (242ms)
+downloading https://repo1.maven.org/maven2/org/apache/commons/commons-pool2/2.11.1/commons-pool2-2.11.1.jar ...
+	[SUCCESSFUL ] org.apache.commons#commons-pool2;2.11.1!commons-pool2.jar (157ms)
+downloading https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-client-runtime/3.3.4/hadoop-client-runtime-3.3.4.jar ...
+	[SUCCESSFUL ] org.apache.hadoop#hadoop-client-runtime;3.3.4!hadoop-client-runtime.jar (6088ms)
+downloading https://repo1.maven.org/maven2/org/lz4/lz4-java/1.8.0/lz4-java-1.8.0.jar ...
+	[SUCCESSFUL ] org.lz4#lz4-java;1.8.0!lz4-java.jar (236ms)
+downloading https://repo1.maven.org/maven2/org/xerial/snappy/snappy-java/1.1.10.5/snappy-java-1.1.10.5.jar ...
+	[SUCCESSFUL ] org.xerial.snappy#snappy-java;1.1.10.5!snappy-java.jar(bundle) (463ms)
+downloading https://repo1.maven.org/maven2/org/slf4j/slf4j-api/2.0.7/slf4j-api-2.0.7.jar ...
+	[SUCCESSFUL ] org.slf4j#slf4j-api;2.0.7!slf4j-api.jar (120ms)
+downloading https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-client-api/3.3.4/hadoop-client-api-3.3.4.jar ...
+	[SUCCESSFUL ] org.apache.hadoop#hadoop-client-api;3.3.4!hadoop-client-api.jar (4373ms)
+downloading https://repo1.maven.org/maven2/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar ...
+	[SUCCESSFUL ] commons-logging#commons-logging;1.1.3!commons-logging.jar (145ms)
+:: resolution report :: resolve 15739ms :: artifacts dl 24441ms
+	:: modules in use:
+	com.google.code.findbugs#jsr305;3.0.0 from central in [default]
+	commons-logging#commons-logging;1.1.3 from central in [default]
+	org.apache.commons#commons-pool2;2.11.1 from central in [default]
+	org.apache.hadoop#hadoop-client-api;3.3.4 from central in [default]
+	org.apache.hadoop#hadoop-client-runtime;3.3.4 from central in [default]
+	org.apache.iceberg#iceberg-spark-runtime-3.5_2.12;1.12.0 from central in [default]
+	org.apache.kafka#kafka-clients;3.4.1 from central in [default]
+	org.apache.spark#spark-sql-kafka-0-10_2.12;3.5.3 from central in [default]
+	org.apache.spark#spark-token-provider-kafka-0-10_2.12;3.5.3 from central in [default]
+	org.lz4#lz4-java;1.8.0 from central in [default]
+	org.slf4j#slf4j-api;2.0.7 from central in [default]
+	org.xerial.snappy#snappy-java;1.1.10.5 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   12  |   12  |   12  |   0   ||   12  |   12  |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-a24e19d8-8d5c-4ecd-9af8-82351084ef7c
+	confs: [default]
+	12 artifacts copied, 0 already retrieved (104124kB/3359ms)
+26/11/20 19:06:07 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Spark context available as 'sc' (master = local[2], app id = local-1795201587681).
+Spark session available as 'spark'.
+26/11/20 19:06:53 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
+Continuous tracking consumer started for shipment-tracking-live
+26/11/20 19:06:54 WARN AdminClientConfig: These configurations '[key.deserializer, value.deserializer, enable.auto.commit, max.poll.records, auto.offset.reset]' were supplied but are not used yet.
+Finished streaming batch 0
+Saved Kafka records = 0
+
+[Stage 0:>                                                          (0 + 1) / 1]
+
+
+
+[Stage 2:>                                                          (0 + 2) / 4]
+
+[Stage 2:==============>                                            (1 + 2) / 4]
+
+
+
+[Stage 5:>                                                          (0 + 1) / 1]
+
+
+26/11/20 19:07:13 WARN ProcessingTimeExecutor: Current batch is falling behind. The trigger interval is 10000 milliseconds, but spent 19403 milliseconds
+Finished streaming batch 1
+Saved Kafka records = 1
+
+[Stage 6:>                                                          (0 + 1) / 1]
+
+
+
+[Stage 7:>                                                          (0 + 1) / 1]
+
+[Stage 8:>                                                          (0 + 2) / 4]
+
+[Stage 8:=============================>                             (2 + 2) / 4]
+
+[Stage 8:============================================>              (3 + 1) / 4]
+
+
+26/11/20 19:07:45 WARN ProcessingTimeExecutor: Current batch is falling behind. The trigger interval is 10000 milliseconds, but spent 15077 milliseconds
+Finished streaming batch 2
+Saved Kafka records = 2
